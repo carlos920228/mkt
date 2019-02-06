@@ -1,21 +1,17 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package vista;
 
-/**
- *
- * @author Softlution
- */
-public class AgregarCiente extends javax.swing.JFrame {
+package view;
 
-    public AgregarCiente() {
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import model.mClientes;
+
+public class AgregarCliente extends javax.swing.JFrame {
+String user;
+    public AgregarCliente(String user) {
         initComponents();
         setTitle("Agregar Clientes");
         setVisible(true);
-        
+        this.user=user;
     }
 
     @SuppressWarnings("unchecked")
@@ -69,8 +65,18 @@ public class AgregarCiente extends javax.swing.JFrame {
         jTextField5.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/exit.png"))); // NOI18N
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/save.png"))); // NOI18N
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -158,7 +164,44 @@ public class AgregarCiente extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField3ActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        recogerDatos();
+        reiniciar();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        new Menu(user);
+        this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
+    
+    private void recogerDatos(){
+        ArrayList data=new ArrayList();
+        String nombre=jTextField1.getText().trim();
+        String telefono=jTextField2.getText().trim();
+        String direccion=jTextField3.getText().trim();
+        String horario=jTextField4.getText().trim();
+        String descanso=jTextField5.getText().trim();
+        if(nombre.isEmpty()||telefono.isEmpty()||direccion.isEmpty()||horario.isEmpty()|| descanso.isEmpty()){
+        JOptionPane.showMessageDialog(null, "Debes llenar todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
+        }else{
+        data.add(nombre);
+        data.add(telefono);
+        data.add(direccion);
+        data.add(horario);
+        data.add(descanso);
+            if(new mClientes().insert(data)){
+            JOptionPane.showMessageDialog(null,"Registro exitoso", "GOOD",JOptionPane.INFORMATION_MESSAGE);
+            reiniciar();
+            }else{JOptionPane.showMessageDialog(null, "Error, contactar a sistemas", "Error", JOptionPane.ERROR_MESSAGE);}
+        }
+    }
+    private void reiniciar(){
+        jTextField1.setText("");
+        jTextField2.setText("");
+        jTextField3.setText("");
+        jTextField4.setText("");
+        jTextField5.setText("");
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
