@@ -1,6 +1,7 @@
 package model;
 
 import controller.Utilerias;
+import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
@@ -20,5 +21,21 @@ public boolean insertar(ArrayList datos){
            return false;
        }
        
-   }    
+   }
+public String loggin(String user, String pass){
+    ArrayList data=new ArrayList();
+    Conexion conexion=new Conexion();
+    conexion.conectar();
+        try {
+          Statement sql=conexion.getConexion().createStatement();
+          ResultSet res=sql.executeQuery("Select nombre from usuarios where contra='"+pass+"' and nombre='"+user+"'");
+          if(res.next()){
+          return res.getString("nombre");}
+          return "Error";
+        } catch (Exception e) {
+            System.out.println(e);
+        return "Error";
+        }
+    
+    }
 }

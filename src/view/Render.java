@@ -5,6 +5,7 @@
  */
 package view;
 
+import java.awt.Color;
 import java.awt.Component;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -31,9 +32,11 @@ public class Render extends DefaultTableCellRenderer{
         }
         
         
-        if(value instanceof JCheckBox){
-            JCheckBox ch = (JCheckBox)value;
-            return ch;
+        if(table.getValueAt(row,3).equals("pedido")){
+            this.setForeground(Color.RED);
+            
+        }else{
+        this.setForeground(Color.BLACK);
         }
         
         return super.getTableCellRendererComponent(table, value, isSelected, 
