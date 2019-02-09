@@ -129,7 +129,7 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-      new Directorio(user);
+      new DirectorioV2(user);
       this.dispose();
     }//GEN-LAST:event_jButton5ActionPerformed
 

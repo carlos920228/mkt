@@ -16,19 +16,15 @@ public class Directorio extends javax.swing.JFrame {
         setTitle("Directorio");
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setVisible(true);
-        table=(DefaultTableModel)jTable1.getModel();
-        loadDirectory();
+        //jTable1.setDefaultRenderer(Object.class,new Render());
+        //table=(DefaultTableModel)jTable1.getModel();
+     //   loadDirectory();
     }
 private void loadDirectory(){
 ArrayList directory=new mClientes().directory(new Utilerias().fecha());
-JButton btnOrder=new JButton("Capturar");
-    JButton btnRecord=new JButton("Historial");
 for(Object o:directory){
     ArrayList row=(ArrayList)o;
-    row.add(btnOrder);
-    row.add(btnRecord);
-    table.addRow(new Object[]{row.get(0).toString(),row.get(1).toString(),row.get(2).toString(),row.get(3).toString(),btnOrder,btnRecord});
-
+    table.addRow(new Object[]{row.get(0).toString(),row.get(1).toString(),row.get(2).toString(),row.get(3).toString(),"",""});
 }
 }
     @SuppressWarnings("unchecked")
