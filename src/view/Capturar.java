@@ -216,7 +216,7 @@ private void cargarProductos(){
 
             },
             new String [] {
-                "Producto", "Precio", "Cantidad", "Subtotal", "Borrar"
+                "Cantidad", "Producto", "Precio", "Subtotal", "Borrar"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -235,15 +235,14 @@ private void cargarProductos(){
         });
         jScrollPane1.setViewportView(jTable1);
         if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(1).setMinWidth(60);
-            jTable1.getColumnModel().getColumn(1).setPreferredWidth(60);
-            jTable1.getColumnModel().getColumn(1).setMaxWidth(60);
+            jTable1.getColumnModel().getColumn(0).setMinWidth(60);
+            jTable1.getColumnModel().getColumn(0).setPreferredWidth(60);
+            jTable1.getColumnModel().getColumn(0).setMaxWidth(60);
             jTable1.getColumnModel().getColumn(2).setMinWidth(60);
             jTable1.getColumnModel().getColumn(2).setPreferredWidth(60);
             jTable1.getColumnModel().getColumn(2).setMaxWidth(60);
-            jTable1.getColumnModel().getColumn(4).setMinWidth(40);
-            jTable1.getColumnModel().getColumn(4).setPreferredWidth(40);
-            jTable1.getColumnModel().getColumn(4).setMaxWidth(40);
+            jTable1.getColumnModel().getColumn(4).setResizable(false);
+            jTable1.getColumnModel().getColumn(4).setPreferredWidth(50);
         }
 
         jButton14.setBackground(new java.awt.Color(188, 209, 209));
@@ -446,7 +445,8 @@ private void cargarProductos(){
         note.setName("note");
         note.setSize(new Dimension(40,40));
         note.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/delete2.png")));
-        table.addRow(new Object[]{jButton5.getText(),jButton5.getName(),cantidad,subTotal,note});
+        table.addRow(new Object[]{cantidad,jButton5.getText(),jButton5.getName(),subTotal,note});
+        
         cantidad="0.0";
         jTextField1.setText(cantidad);
         }
@@ -562,7 +562,7 @@ private void cargarProductos(){
         note.setName("note");
         note.setSize(new Dimension(30,30));
         note.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/delete2.png")));
-        table.addRow(new Object[]{jButton2.getText(),jButton2.getName(),cantidad,subTotal,note});
+        table.addRow(new Object[]{cantidad,jButton2.getText(),jButton2.getName(),subTotal,note});
         cantidad="0.0";
         jTextField1.setText(cantidad);
         }
@@ -578,7 +578,7 @@ private void cargarProductos(){
         note.setName("note");
         note.setSize(new Dimension(30,30));
         note.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/delete2.png")));
-        table.addRow(new Object[]{jButton1.getText(),jButton1.getName(),cantidad,subTotal,note});
+        table.addRow(new Object[]{cantidad,jButton1.getText(),jButton1.getName(),subTotal,note});
         cantidad="0.0";
         jTextField1.setText(cantidad);
         }
@@ -594,7 +594,7 @@ private void cargarProductos(){
         note.setName("note");
         note.setSize(new Dimension(30,30));
         note.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/delete2.png")));
-        table.addRow(new Object[]{jButton4.getText(),jButton4.getName(),cantidad,subTotal,note});
+        table.addRow(new Object[]{cantidad,jButton4.getText(),jButton4.getName(),subTotal,note});
         cantidad="0.0";
         jTextField1.setText(cantidad);
         }
@@ -610,7 +610,7 @@ private void cargarProductos(){
         note.setName("note");
         note.setSize(new Dimension(30,30));
         note.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/delete2.png")));
-        table.addRow(new Object[]{jButton3.getText(),jButton3.getName(),cantidad,subTotal,note});
+        table.addRow(new Object[]{cantidad,jButton3.getText(),jButton3.getName(),subTotal,note});
         cantidad="0.0";
         jTextField1.setText(cantidad);
         }
@@ -640,10 +640,10 @@ private void cargarProductos(){
      ArrayList data = new ArrayList();
         for (int i = 0; i < this.jTable1.getRowCount(); i++) {
             ArrayList row = new ArrayList();
-            imprimir+=table.getValueAt(i, 0).toString()+"        "+table.getValueAt(i, 2).toString()+"\n";
-            row.add(table.getValueAt(i, 0).toString());
+            imprimir+=table.getValueAt(i, 0).toString()+"        "+table.getValueAt(i, 1).toString()+"\n";
             row.add(table.getValueAt(i, 1).toString());
             row.add(table.getValueAt(i, 2).toString());
+            row.add(table.getValueAt(i, 0).toString());
             row.add(table.getValueAt(i, 3).toString());
             data.add(row);
         }
@@ -651,7 +651,7 @@ private void cargarProductos(){
     }
     
     private void jButton18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton18ActionPerformed
-    imprimir ="Cliente:"+cliente+"\n" +"Fecha:"+new Utilerias().fecha()+"\n" +"Producto       Cantidad\n" ;
+    imprimir ="Cliente:"+cliente+"\n" +"Fecha:"+new Utilerias().fecha()+"\n" +"Cantidad       Producto\n" ;
     ArrayList data=new ArrayList();
     data.add(cliente);
     data.add("N/A");
@@ -659,7 +659,7 @@ private void cargarProductos(){
     String id=new mOrden().insertOrder(data);
     if(!id.equals("Error")){
     if(new mOrden().insertRowOrder(loadData(), id)){
-    imprimir+="Atendió: "+user+"\n Observaciones: "+jTextField2.getText();
+    imprimir+="Atendió: "+user+"\n \\027\\033\\008TITULO EN NEGRITA\\027\\033\\000\\n OBSERVACION: "+jTextField2.getText();
     Imp pagination = new Imp();
     pagination.imprimirnomina();
     new DirectorioV2(user);
@@ -717,7 +717,7 @@ public class Imp implements Printable {
              throws PrinterException {
         //Se establece la fuente, el tipo, el tamaño, la metrica según la fuente asignada, 
         //obtiene la altura de cada linea de texto para que todas queden iguales
-        Font font = new Font("Serif", Font.PLAIN, 10);
+        Font font = new Font("Serif", Font.PLAIN,8);
         FontMetrics metrics = g.getFontMetrics(font);
         int altodelinea = metrics.getHeight();
         //Calcula el número de lineas por pagina y el total de paginas
@@ -743,7 +743,7 @@ public class Imp implements Printable {
          */
         
         Graphics2D g2d = (Graphics2D)g;
-        g2d.translate(pf.getImageableX(), pf.getImageableY());
+        g2d.translate(pf.getImageableX(), pf.getImageableY()-20);
         /*Dibujamos cada línea de texto en cada página,
          * se aumenta a la posición 'y' la altura de la línea a cada línea de texto para evitar la saturación de texto 
          */

@@ -42,11 +42,11 @@ DefaultTableModel table;
 
             },
             new String [] {
-                "Nombre", "Telefono", "Horario", "Observación", "", ""
+                "Nombre", "Telefono", "Horario", "Observación", "", "", ""
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -61,11 +61,13 @@ DefaultTableModel table;
         });
         jScrollPane1.setViewportView(jTable1);
         if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(3).setPreferredWidth(800);
+            jTable1.getColumnModel().getColumn(3).setPreferredWidth(600);
             jTable1.getColumnModel().getColumn(4).setResizable(false);
-            jTable1.getColumnModel().getColumn(4).setPreferredWidth(5);
+            jTable1.getColumnModel().getColumn(4).setPreferredWidth(40);
             jTable1.getColumnModel().getColumn(5).setResizable(false);
-            jTable1.getColumnModel().getColumn(5).setPreferredWidth(5);
+            jTable1.getColumnModel().getColumn(5).setPreferredWidth(40);
+            jTable1.getColumnModel().getColumn(6).setResizable(false);
+            jTable1.getColumnModel().getColumn(6).setPreferredWidth(40);
         }
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/exit.png"))); // NOI18N
@@ -126,8 +128,8 @@ DefaultTableModel table;
                 }
                 if(boton.getName().equals("note")){
                     Object client = jTable1.getValueAt(fila, 0);
-                    System.out.println("observacion a"+client.toString());
-                    //EVENTOS ELIMINAR
+                    new Observacion(user,client.toString());
+                    this.dispose();
                 }
             }
         }
@@ -146,11 +148,15 @@ note.setOpaque(false);
 JButton cpr=new JButton();
 cpr.setName("carro");
 cpr.setSize(new Dimension(30,30));
-cpr.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/561236.png"))); // NOI18N
+cpr.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/561236.png")));
+JButton mod=new JButton();
+mod.setName("mod");
+mod.setSize(new Dimension(30,30));
+mod.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/mod.png")));
 ArrayList directory=new mClientes().directory(new Utilerias().fecha());
 for(Object o:directory){
     ArrayList row=(ArrayList)o;
-    table.addRow(new Object[]{row.get(0).toString(),row.get(1).toString(),row.get(2).toString(),row.get(3).toString(),cpr,note});
+    table.addRow(new Object[]{row.get(0).toString(),row.get(1).toString(),row.get(2).toString(),row.get(3).toString(),cpr,note,mod});
 }}
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

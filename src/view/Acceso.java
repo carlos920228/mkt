@@ -36,6 +36,11 @@ public class Acceso extends javax.swing.JFrame {
 
         jPasswordField1.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
         jPasswordField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jPasswordField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jPasswordField1KeyTyped(evt);
+            }
+        });
 
         jButton1.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
         jButton1.setText("Entrar");
@@ -105,6 +110,19 @@ public class Acceso extends javax.swing.JFrame {
     }else{
     JOptionPane.showMessageDialog(null, "Datos de acceso erroneos", "Error", JOptionPane.ERROR_MESSAGE);}
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jPasswordField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPasswordField1KeyTyped
+        char a=evt.getKeyChar();
+        if(a=='\n'){
+        String user=new mUsuarios().loggin(jTextField1.getText(),jPasswordField1.getText());
+    if(!user.equals("Error")){
+    new Menu(user);
+    this.dispose();
+    }else{
+    JOptionPane.showMessageDialog(null, "Datos de acceso erroneos", "Error", JOptionPane.ERROR_MESSAGE);}
+    }  
+        
+    }//GEN-LAST:event_jPasswordField1KeyTyped
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
