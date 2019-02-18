@@ -20,6 +20,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.mFavoritos;
 import model.mOrden;
+import pruebatiket.Ticket;
 
 public class modificarPedido extends javax.swing.JFrame {
 String user,cliente,cantidad;
@@ -709,12 +710,15 @@ for (Object o:tab) {
     }
     
     private void jButton18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton18ActionPerformed
+    Ticket ticket = new Ticket();
     
     imprimir ="Cliente:"+cliente+"\n" +"Fecha:"+new Utilerias().fecha()+"\n\n" +"Cantidad       Producto\n" ;  
     loadData();
     imprimir+="Atendió: "+user+"\n \\027\\033\\008TITULO EN NEGRITA\\027\\033\\000\\n OBSERVACION: "+jTextField2.getText();
-    System.out.println(imprimir);
-    //new DirectorioV2(user);
+    Ticket.AddSubCabecera(imprimir);
+    Ticket.ImprimirDocumento();
+    
+//new DirectorioV2(user);
     //this.dispose();			
     }//GEN-LAST:event_jButton18ActionPerformed
 
