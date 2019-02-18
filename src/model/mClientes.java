@@ -47,7 +47,7 @@ public class mClientes {
         try {
             Statement sql = conexion.getConexion().createStatement();
             ResultSet result = sql.executeQuery("select a.nombre,a.telefono,a.horario,IFNULL((SELECT bitacoraMKT.observacion FROM bitacoraMKT, "
-                    + "clientesPedidos WHERE a.nombre=bitacoraMKT.cliente AND bitacoraMKT.fecha='"+date+"' order by bitacoraMKT.id DESC LIMIT 1),'N/A') AS 'Observ' from clientesPedidos as a");
+                    + "clientesPedidos WHERE a.nombre=bitacoraMKT.cliente AND bitacoraMKT.fecha='"+date+"' order by bitacoraMKT.id DESC LIMIT 1),'N/A') AS 'Observ' from clientesPedidos as a order by horario");
             while (result.next()) {
                ArrayList row= new ArrayList();
                row.add(result.getString("nombre"));

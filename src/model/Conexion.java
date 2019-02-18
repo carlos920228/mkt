@@ -1,4 +1,5 @@
 package model;
+import controller.Utilerias;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -8,7 +9,8 @@ import java.sql.Statement;
 import java.sql.*;
 public class Conexion {
     //public  String cadena = "jdbc:mysql://104.238.111.62:3306/prodep2i_pruebaMood";remota
-    public String cadena="jdbc:mysql://localhost/prodep2i_pruebaMood";
+    //public String cadena="jdbc:mysql://172.16.3.233/prodep2i_pruebaMood";
+    public String cadena=new Utilerias().conexion();
     public String driver="com.mysql.jdbc.Driver";
     Connection conexion;
     

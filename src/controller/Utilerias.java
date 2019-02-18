@@ -47,6 +47,20 @@ try {
         return"Error";
     }
 }
+public String conexion(){
+try {
+        BufferedReader fr = new BufferedReader(new FileReader("conexion.txt")); 
+        String local="";
+        while(fr.ready()){
+        local=fr.readLine();
+        }
+        fr.close();
+        return local;
+    } catch (Exception e) {
+        System.out.println(e);
+        return"Error";
+    }
+}
 public String local(){
     try {
         BufferedReader fr = new BufferedReader(new FileReader("local.txt")); 

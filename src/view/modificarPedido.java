@@ -70,6 +70,7 @@ jComboBox1.removeAllItems();
     jComboBox1.setVisible(true);
 }else{
 if(!data.isEmpty()){
+pedido=data.get(0).toString();
 llenarTabla(data.get(0).toString());
 }
 }
@@ -232,11 +233,11 @@ llenarTabla(data.get(0).toString());
 
             },
             new String [] {
-                "Cantidad", "Producto", "Precio", "Subtotal", "Borrar"
+                "ID", "Cantidad", "Producto", "Precio", "Subtotal", "Borrar"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -251,14 +252,14 @@ llenarTabla(data.get(0).toString());
         });
         jScrollPane1.setViewportView(jTable1);
         if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setMinWidth(60);
-            jTable1.getColumnModel().getColumn(0).setPreferredWidth(60);
-            jTable1.getColumnModel().getColumn(0).setMaxWidth(60);
-            jTable1.getColumnModel().getColumn(2).setMinWidth(60);
-            jTable1.getColumnModel().getColumn(2).setPreferredWidth(60);
-            jTable1.getColumnModel().getColumn(2).setMaxWidth(60);
-            jTable1.getColumnModel().getColumn(4).setResizable(false);
-            jTable1.getColumnModel().getColumn(4).setPreferredWidth(50);
+            jTable1.getColumnModel().getColumn(1).setMinWidth(60);
+            jTable1.getColumnModel().getColumn(1).setPreferredWidth(60);
+            jTable1.getColumnModel().getColumn(1).setMaxWidth(60);
+            jTable1.getColumnModel().getColumn(3).setMinWidth(60);
+            jTable1.getColumnModel().getColumn(3).setPreferredWidth(60);
+            jTable1.getColumnModel().getColumn(3).setMaxWidth(60);
+            jTable1.getColumnModel().getColumn(5).setResizable(false);
+            jTable1.getColumnModel().getColumn(5).setPreferredWidth(50);
         }
 
         jButton14.setBackground(new java.awt.Color(188, 209, 209));
@@ -470,7 +471,7 @@ for (Object o:tab) {
         note.setName("note");
         note.setSize(new Dimension(30,30));
         note.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/delete2.png")));
-        table.addRow(new Object[]{row.get(0).toString(),row.get(1).toString(),row.get(2).toString(),row.get(3).toString(),note});
+        table.addRow(new Object[]{row.get(0).toString(),row.get(4).toString(),row.get(1).toString(),row.get(2).toString(),row.get(3).toString(),note});
     }
 }
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
@@ -492,8 +493,8 @@ for (Object o:tab) {
         note.setName("note");
         note.setSize(new Dimension(40,40));
         note.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/delete2.png")));
-        table.addRow(new Object[]{cantidad,jButton5.getText(),jButton5.getName(),subTotal,note});
-        
+        String idRow=new mOrden().insertRowModifyOrder(jButton5.getText(),jButton5.getName(),cantidad,subTotal.toString(),pedido);
+        table.addRow(new Object[]{idRow,cantidad,jButton5.getText(),jButton5.getName(),subTotal,note});  
         cantidad="0.0";
         jTextField1.setText(cantidad);
         }
@@ -609,7 +610,8 @@ for (Object o:tab) {
         note.setName("note");
         note.setSize(new Dimension(30,30));
         note.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/delete2.png")));
-        table.addRow(new Object[]{cantidad,jButton2.getText(),jButton2.getName(),subTotal,note});
+        String idRow=new mOrden().insertRowModifyOrder(jButton2.getText(),jButton2.getName(),cantidad,subTotal.toString(),pedido);
+        table.addRow(new Object[]{idRow,cantidad,jButton2.getText(),jButton2.getName(),subTotal,note});      
         cantidad="0.0";
         jTextField1.setText(cantidad);
         }
@@ -625,7 +627,8 @@ for (Object o:tab) {
         note.setName("note");
         note.setSize(new Dimension(30,30));
         note.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/delete2.png")));
-        table.addRow(new Object[]{cantidad,jButton1.getText(),jButton1.getName(),subTotal,note});
+        String idRow=new mOrden().insertRowModifyOrder(jButton1.getText(),jButton1.getName(),cantidad,subTotal.toString(),pedido);
+        table.addRow(new Object[]{idRow,cantidad,jButton1.getText(),jButton1.getName(),subTotal,note});  
         cantidad="0.0";
         jTextField1.setText(cantidad);
         }
@@ -641,7 +644,8 @@ for (Object o:tab) {
         note.setName("note");
         note.setSize(new Dimension(30,30));
         note.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/delete2.png")));
-        table.addRow(new Object[]{cantidad,jButton4.getText(),jButton4.getName(),subTotal,note});
+        String idRow=new mOrden().insertRowModifyOrder(jButton4.getText(),jButton4.getName(),cantidad,subTotal.toString(),pedido);
+        table.addRow(new Object[]{idRow,cantidad,jButton4.getText(),jButton4.getName(),subTotal,note});  
         cantidad="0.0";
         jTextField1.setText(cantidad);
         }
@@ -657,7 +661,8 @@ for (Object o:tab) {
         note.setName("note");
         note.setSize(new Dimension(30,30));
         note.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/delete2.png")));
-        table.addRow(new Object[]{cantidad,jButton3.getText(),jButton3.getName(),subTotal,note});
+        String idRow=new mOrden().insertRowModifyOrder(jButton3.getText(),jButton3.getName(),cantidad,subTotal.toString(),pedido);
+        table.addRow(new Object[]{idRow,cantidad,jButton3.getText(),jButton3.getName(),subTotal,note});  
         cantidad="0.0";
         jTextField1.setText(cantidad);
         }
@@ -672,8 +677,10 @@ for (Object o:tab) {
                 ((JButton)value).doClick();
                 JButton boton = (JButton) value;
                 if(boton.getName().equals("note")){
+                    String id=jTable1.getValueAt(jTable1.getSelectedRow(),0).toString();
+                    new mOrden().delete(id);
                     table.removeRow(jTable1.getSelectedRow());
-                    
+                                       
                 }
             }
         }
@@ -687,7 +694,11 @@ for (Object o:tab) {
      ArrayList data = new ArrayList();
         for (int i = 0; i < this.jTable1.getRowCount(); i++) {
             ArrayList row = new ArrayList();
-            imprimir+=table.getValueAt(i, 0).toString()+"        "+table.getValueAt(i, 1).toString()+"\n";
+            String cantidad=table.getValueAt(i, 1).toString();
+            while(cantidad.length()<15){
+            cantidad+=" ";
+            }
+            imprimir+=cantidad+table.getValueAt(i, 2).toString()+"\n";
             row.add(table.getValueAt(i, 1).toString());
             row.add(table.getValueAt(i, 2).toString());
             row.add(table.getValueAt(i, 0).toString());
@@ -698,23 +709,13 @@ for (Object o:tab) {
     }
     
     private void jButton18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton18ActionPerformed
-    imprimir ="Cliente:"+cliente+"\n" +"Fecha:"+new Utilerias().fecha()+"\n" +"Cantidad       Producto\n" ;
-    ArrayList data=new ArrayList();
-    data.add(cliente);
-    data.add("N/A");
-    data.add(user);
-    String id=new mOrden().insertOrder(data);
-    if(!id.equals("Error")){
-    if(new mOrden().insertRowOrder(loadData(), id)){
+    
+    imprimir ="Cliente:"+cliente+"\n" +"Fecha:"+new Utilerias().fecha()+"\n\n" +"Cantidad       Producto\n" ;  
+    loadData();
     imprimir+="Atendió: "+user+"\n \\027\\033\\008TITULO EN NEGRITA\\027\\033\\000\\n OBSERVACION: "+jTextField2.getText();
-    Imp pagination = new Imp();
-    pagination.imprimirnomina();
-    new DirectorioV2(user);
-    this.dispose();
-    }
-    }else{
-    JOptionPane.showMessageDialog(null, "Imposible guarda compra, contactar a sistemas", "Error", JOptionPane.ERROR_MESSAGE);
-    }			
+    System.out.println(imprimir);
+    //new DirectorioV2(user);
+    //this.dispose();			
     }//GEN-LAST:event_jButton18ActionPerformed
 
     private void jComboBox1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBox1MouseEntered

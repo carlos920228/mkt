@@ -50,6 +50,25 @@ public class mOrden {
         }
     }
     
+    public String  insertRowModifyOrder(String pro,String pre,String cant,String sub, String id){
+    Conexion conexion = new Conexion();
+        conexion.conectar();
+        String sqlString="insert into productosOrden(producto, precio,cantidad,subtotal,idpedido) values";
+        sqlString+="('"+pro+"','"+pre+"','"+cant+"','"+sub+"','"+id+"')";
+        sqlString+=";";
+        try {
+            PreparedStatement sql = conexion.getConexion().prepareStatement(sqlString);
+            sql.execute();
+            ResultSet r = sql.executeQuery("select LAST_INSERT_ID() as id");
+            r.next();
+            String idO = r.getString("id");
+            conexion.getConexion().close();
+            return idO;
+        } catch (Exception e) {
+            System.out.println("Error en insertarDeparture" + e);
+            return "Error";
+        }
+    }
     public ArrayList orders(String cliente, String fecha){
     ArrayList datas=new ArrayList();
     Conexion conexion = new Conexion();
@@ -75,11 +94,11 @@ public class mOrden {
             ResultSet result = sql.executeQuery("select *from productosorden where idpedido='"+id+"'");
             while (result.next()) {
                ArrayList data=new ArrayList();
-               data.add(result.getString("cantidad"));
+               data.add(result.getString("idproductosPedido"));
                data.add(result.getString("producto"));
                data.add(result.getString("precio"));
-               
                data.add(result.getString("subtotal"));
+               data.add(result.getString("cantidad"));
                datas.add(data);
             }
             conexion.getConexion().close();
@@ -88,4 +107,17 @@ public class mOrden {
         }
     return datas;
     }
+    public boolean delete(String id){
+        Conexion conexion = new Conexion();
+        conexion.conectar();
+        try {
+        Statement sql=conexion.getConexion().createStatement();
+        sql.executeUpdate("delete from productosOrden where idproductosPedido='"+id+"'");
+        conexion.getConexion().close();
+        return true;
+        } catch (Exception e) {
+            System.out.println(e);
+            return false;}
+    }
+    
 }
