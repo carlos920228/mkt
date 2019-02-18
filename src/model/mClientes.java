@@ -62,4 +62,18 @@ public class mClientes {
         }
         return data;
    }
+   public boolean observation(ArrayList data){
+       Conexion conexion=new Conexion();
+   conexion.conectar();
+       try {
+           Statement sql=conexion.getConexion().createStatement();
+           sql.executeUpdate("insert into bitacoraMKT (cliente,observacion,fecha) "
+                   + "values ('"+data.get(0).toString()+"','"+data.get(1).toString()+"','"+data.get(2).toString()+"')");
+           conexion.getConexion().close();
+           return true;
+       } catch (Exception e) {
+           System.out.println("error insertal cliente"+e);
+           return false;
+       }      
+   }
 }

@@ -3,6 +3,7 @@ package model;
 import controller.Utilerias;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 public class mOrden {
@@ -47,5 +48,44 @@ public class mOrden {
             System.out.println("Error en insertarDeparture" + e);
             return false;
         }
+    }
+    
+    public ArrayList orders(String cliente, String fecha){
+    ArrayList datas=new ArrayList();
+    Conexion conexion = new Conexion();
+        conexion.conectar();
+        try {
+            Statement sql = conexion.getConexion().createStatement();
+            ResultSet result = sql.executeQuery("select idpedido from orden where cliente='"+cliente+"' and fecha='"+fecha+"'");
+            while (result.next()) {
+               datas.add(result.getString("idpedido"));
+            }
+            conexion.getConexion().close();
+        } catch (Exception e) {
+            System.out.println("Error consult Repartidores List " + e);
+        }
+    return datas;
+    }
+    public ArrayList orderProducts(String id){
+     ArrayList datas=new ArrayList();
+    Conexion conexion = new Conexion();
+        conexion.conectar();
+        try {
+            Statement sql = conexion.getConexion().createStatement();
+            ResultSet result = sql.executeQuery("select *from productosorden where idpedido='"+id+"'");
+            while (result.next()) {
+               ArrayList data=new ArrayList();
+               data.add(result.getString("cantidad"));
+               data.add(result.getString("producto"));
+               data.add(result.getString("precio"));
+               
+               data.add(result.getString("subtotal"));
+               datas.add(data);
+            }
+            conexion.getConexion().close();
+        } catch (Exception e) {
+            System.out.println("Error consult Repartidores List " + e);
+        }
+    return datas;
     }
 }

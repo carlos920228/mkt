@@ -131,6 +131,11 @@ DefaultTableModel table;
                     new Observacion(user,client.toString());
                     this.dispose();
                 }
+                if(boton.getName().equals("mod")){
+                    Object client = jTable1.getValueAt(fila, 0);
+                    new modificarPedido(user,client.toString());
+                    this.dispose();
+                }
             }
         }
     }//GEN-LAST:event_jTable1MouseClicked
