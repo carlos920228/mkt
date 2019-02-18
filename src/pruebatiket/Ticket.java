@@ -61,6 +61,7 @@ import javax.print.attribute.standard.MediaSizeName;
 /* 56 */     cadena = cadena + String.valueOf(ABRIR_GAVETA);
 /* 57 */     byte[] bytes = cadena.getBytes();
 /* 58 */     Doc doc = new SimpleDoc(bytes, flavor, null);
+             System.out.println(cadena);
 /*    */     try {
     PrintRequestAttributeSet requestAttributeSet = new HashPrintRequestAttributeSet();
 		requestAttributeSet.add(MediaSizeName.ISO_A4);
@@ -74,7 +75,7 @@ import javax.print.attribute.standard.MediaSizeName;
                System.out.println(cadena);
 /* 67 */       cadena = "";
 /*    */     } catch (Exception e) {
-
+                
                 System.out.println(e);
 /*    */     }
 /*    */   }

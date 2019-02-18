@@ -20,6 +20,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.mFavoritos;
 import model.mOrden;
+import pruebatiket.Ticket;
 
 public class Capturar extends javax.swing.JFrame {
 String user,cliente,cantidad;
@@ -651,25 +652,63 @@ private void cargarProductos(){
     }
     
     private void jButton18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton18ActionPerformed
-    imprimir ="Cliente:"+cliente+"\n" +"Fecha:"+new Utilerias().fecha()+"\n" +"Cantidad       Producto\n" ;
+    //imprimir ="Cliente:"+cliente+"\n" +"Fecha:"+new Utilerias().fecha()+"\n" +"Cantidad       Producto\n" ;
     ArrayList data=new ArrayList();
     data.add(cliente);
     data.add("N/A");
     data.add(user);
     String id=new mOrden().insertOrder(data);
     if(!id.equals("Error")){
-    if(new mOrden().insertRowOrder(loadData(), id)){
-    imprimir+="Atendió: "+user+"\n \\027\\033\\008TITULO EN NEGRITA\\027\\033\\000\\n OBSERVACION: "+jTextField2.getText();
-    Imp pagination = new Imp();
-    pagination.imprimirnomina();
-    new DirectorioV2(user);
-    this.dispose();
+        ArrayList lista=loadData();
+        if(new mOrden().insertRowOrder(loadData(), id)){
+       
+        imprimirTicket(lista,id);
+    //this.dispose();
     }
     }else{
     JOptionPane.showMessageDialog(null, "Imposible guarda compra, contactar a sistemas", "Error", JOptionPane.ERROR_MESSAGE);
     }			
     }//GEN-LAST:event_jButton18ActionPerformed
-
+private void imprimirTicket(ArrayList productos, String folio) {
+        Ticket ticket = new Ticket();
+        Ticket.AddCabecera(Ticket.DarEspacio());
+          Ticket.AddSubCabecera("Cliente:  " +cliente);
+        Ticket.AddSubCabecera(Ticket.DarEspacio());
+        Ticket.AddSubCabecera("Atendio: " +user);
+        Ticket.AddSubCabecera(Ticket.DarEspacio());
+        Ticket.AddSubCabecera(Ticket.DarEspacio());
+        Ticket.AddSubCabecera(Ticket.DarEspacio());
+        Ticket.AddSubCabecera(Ticket.DibujarLinea(40));
+        Ticket.AddSubCabecera(Ticket.DarEspacio());
+        Ticket.AddItem("Cantidad       |", "Producto", Ticket.DarEspacio());
+        for (Object x : productos) {
+            ArrayList pro = (ArrayList) x;
+            String canti=pro.get(2).toString();
+            while(canti.length()<15){canti+=" ";}
+            Ticket.AddItem(canti+"|",pro.get(0).toString(),"");
+            Ticket.AddItem("", "", Ticket.DarEspacio());
+        }
+        Ticket.AddTotal(Ticket.DibujarLinea(40), "  ");
+        Ticket.AddTotal("", Ticket.DarEspacio());
+        Ticket.AddTotal("", Ticket.DarEspacio());
+        Ticket.AddTotal("", Ticket.DarEspacio());
+        Ticket.AddTotal("", Ticket.DarEspacio());
+        Ticket.AddPieLinea(Ticket.DarEspacio());
+        Ticket.AddPieLinea("  REGIMEN DE INCORPORACION FISCAL");
+        Ticket.AddPieLinea(Ticket.DarEspacio());
+        Ticket.AddPieLinea("FOLIO " + folio);
+        Ticket.AddPieLinea(Ticket.DarEspacio());
+        Ticket.AddPieLinea(Ticket.DarEspacio());
+        Ticket.AddPieLinea(Ticket.DarEspacio());
+        Ticket.AddPieLinea(Ticket.DarEspacio());
+        Ticket.AddPieLinea(Ticket.DarEspacio());
+        Ticket.AddPieLinea(Ticket.DarEspacio());
+        Ticket.AddPieLinea(Ticket.DarEspacio());
+        Ticket.AddPieLinea(Ticket.DarEspacio());
+        Ticket.AddPieLinea(Ticket.DarEspacio());
+        Ticket.ImprimirDocumento();
+        this.jTextField1.requestFocus();
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;

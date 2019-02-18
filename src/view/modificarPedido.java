@@ -700,28 +700,59 @@ for (Object o:tab) {
             cantidad+=" ";
             }
             imprimir+=cantidad+table.getValueAt(i, 2).toString()+"\n";
-            row.add(table.getValueAt(i, 1).toString());
+            row.add(cantidad);
             row.add(table.getValueAt(i, 2).toString());
-            row.add(table.getValueAt(i, 0).toString());
-            row.add(table.getValueAt(i, 3).toString());
             data.add(row);
         }
         return data;
     }
     
     private void jButton18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton18ActionPerformed
-    Ticket ticket = new Ticket();
-    
     imprimir ="Cliente:"+cliente+"\n" +"Fecha:"+new Utilerias().fecha()+"\n\n" +"Cantidad       Producto\n" ;  
-    loadData();
+    ArrayList data=loadData();
     imprimir+="Atendió: "+user+"\n \\027\\033\\008TITULO EN NEGRITA\\027\\033\\000\\n OBSERVACION: "+jTextField2.getText();
-    Ticket.AddSubCabecera(imprimir);
-    Ticket.ImprimirDocumento();
-    
+    imprimirTicket(data,pedido);    
 //new DirectorioV2(user);
     //this.dispose();			
     }//GEN-LAST:event_jButton18ActionPerformed
-
+private void imprimirTicket(ArrayList productos, String folio) {
+        Ticket ticket = new Ticket();
+        Ticket.AddCabecera(Ticket.DarEspacio());
+          Ticket.AddSubCabecera("Cliente:  " +cliente);
+        Ticket.AddSubCabecera(Ticket.DarEspacio());
+        Ticket.AddSubCabecera("Atendio: " +user);
+        Ticket.AddSubCabecera(Ticket.DarEspacio());
+        Ticket.AddSubCabecera(Ticket.DarEspacio());
+        Ticket.AddSubCabecera(Ticket.DarEspacio());
+        Ticket.AddSubCabecera(Ticket.DibujarLinea(40));
+        Ticket.AddSubCabecera(Ticket.DarEspacio());
+        Ticket.AddItem("Cantidad       |", "Producto", Ticket.DarEspacio());
+        for (Object x : productos) {
+            ArrayList pro = (ArrayList) x;
+            Ticket.AddItem(pro.get(0).toString()+"|",pro.get(1).toString(),"");
+            Ticket.AddItem("", "", Ticket.DarEspacio());
+        }
+        Ticket.AddTotal(Ticket.DibujarLinea(40), "  ");
+        Ticket.AddTotal("", Ticket.DarEspacio());
+        Ticket.AddTotal("", Ticket.DarEspacio());
+        Ticket.AddTotal("", Ticket.DarEspacio());
+        Ticket.AddTotal("", Ticket.DarEspacio());
+        Ticket.AddPieLinea(Ticket.DarEspacio());
+        Ticket.AddPieLinea("  REGIMEN DE INCORPORACION FISCAL");
+        Ticket.AddPieLinea(Ticket.DarEspacio());
+        Ticket.AddPieLinea("FOLIO " + folio);
+        Ticket.AddPieLinea(Ticket.DarEspacio());
+        Ticket.AddPieLinea(Ticket.DarEspacio());
+        Ticket.AddPieLinea(Ticket.DarEspacio());
+        Ticket.AddPieLinea(Ticket.DarEspacio());
+        Ticket.AddPieLinea(Ticket.DarEspacio());
+        Ticket.AddPieLinea(Ticket.DarEspacio());
+        Ticket.AddPieLinea(Ticket.DarEspacio());
+        Ticket.AddPieLinea(Ticket.DarEspacio());
+        Ticket.AddPieLinea(Ticket.DarEspacio());
+        Ticket.ImprimirDocumento();
+        this.jTextField1.requestFocus();
+    }
     private void jComboBox1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBox1MouseEntered
     
     }//GEN-LAST:event_jComboBox1MouseEntered
