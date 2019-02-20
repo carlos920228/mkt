@@ -1,4 +1,4 @@
-/*    */ package pruebatiket;
+package pruebatiket;
 /*    */ 
 /*    */ 
 /*    */ 

@@ -5,17 +5,24 @@
  */
 package view;
 
+import model.mUsuarios;
+
 /**
  *
  * @author Supervisor
  */
 public class Menu extends javax.swing.JFrame {
     String user;
+    String permiso;
     public Menu(String user) {
         initComponents();
         setTitle("Menú");
         setVisible(true);
         this.user=user;
+        permiso=new mUsuarios().rol(user);
+        if(permiso.equals("1")){
+        jButton4.setEnabled(true);
+        }
         setLocationRelativeTo(null);
     }
 

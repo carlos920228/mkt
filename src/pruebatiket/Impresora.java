@@ -1,4 +1,4 @@
-/*    */ package pruebatiket;
+package pruebatiket;
 /*    */ 
 /*    */ import java.awt.Color;
 /*    */ import java.awt.Font;
@@ -19,7 +19,7 @@
 /*    */ public class Impresora
 /*    */ {
 /* 21 */   Font fuente = new Font("Dialog", 0, 15);
-/*    */ 
+/*    */   
 /*    */ 
 /*    */   PrintJob pj;
 /*    */   

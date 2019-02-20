@@ -1,7 +1,6 @@
-/*    */ package pruebatiket;
+package pruebatiket;
 /*    */ 
 /*    */ import java.util.ArrayList;
-import java.util.Locale;
 /*    */ import javax.print.Doc;
 /*    */ import javax.print.DocFlavor;
 /*    */ import javax.print.DocFlavor.BYTE_ARRAY;
@@ -9,10 +8,6 @@ import java.util.Locale;
 /*    */ import javax.print.PrintService;
 /*    */ import javax.print.PrintServiceLookup;
 /*    */ import javax.print.SimpleDoc;
-import javax.print.attribute.HashPrintRequestAttributeSet;
-import javax.print.attribute.PrintRequestAttributeSet;
-import javax.print.attribute.standard.JobName;
-import javax.print.attribute.standard.MediaSizeName;
 /*    */ import javax.swing.JOptionPane;
 /*    */ 
 /*    */ 
@@ -61,12 +56,8 @@ import javax.print.attribute.standard.MediaSizeName;
 /* 56 */     cadena = cadena + String.valueOf(ABRIR_GAVETA);
 /* 57 */     byte[] bytes = cadena.getBytes();
 /* 58 */     Doc doc = new SimpleDoc(bytes, flavor, null);
-             System.out.println(cadena);
 /*    */     try {
-    PrintRequestAttributeSet requestAttributeSet = new HashPrintRequestAttributeSet();
-		requestAttributeSet.add(MediaSizeName.ISO_A4);
-		requestAttributeSet.add(new JobName(null, Locale.ROOT));
-/* 60 */       pj.print(doc, requestAttributeSet);
+/* 60 */       pj.print(doc, null);
 /*    */       CabezaLineas.removeAll(CabezaLineas);
 /* 63 */       subCabezaLineas.removeAll(subCabezaLineas);
 /* 64 */       items.removeAll(items);
@@ -75,8 +66,7 @@ import javax.print.attribute.standard.MediaSizeName;
                System.out.println(cadena);
 /* 67 */       cadena = "";
 /*    */     } catch (Exception e) {
-                
-                System.out.println(e);
+/* 69 */       JOptionPane.showMessageDialog(null, "Error al imprimir :(");
 /*    */     }
 /*    */   }
 /*    */ }

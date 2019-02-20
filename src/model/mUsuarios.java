@@ -38,4 +38,20 @@ public String loggin(String user, String pass){
         }
     
     }
+public String rol(String user){
+    ArrayList data=new ArrayList();
+    Conexion conexion=new Conexion();
+    conexion.conectar();
+        try {
+          Statement sql=conexion.getConexion().createStatement();
+          ResultSet res=sql.executeQuery("Select * from usuarios where nombre='"+user+"'");
+          if(res.next()){
+          return res.getString("rol");}
+          return "Error";
+        } catch (Exception e) {
+            System.out.println(e);
+        return "Error";
+        }
+    
+    }
 }
